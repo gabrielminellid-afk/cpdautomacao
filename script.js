@@ -81,35 +81,70 @@ const projetos = [
   }
 ];
 
+
 const container = document.getElementById("lista-projetos");
 
-projetos.forEach(projeto => {
-  let fotos = "";
-
-  projeto.imagens.forEach(img => {
-    fotos += `
-      <div class="foto-card">
-        <img src="imagens/${img}" alt="${projeto.nome}">
-      </div>
-    `;
-  });
+projetos.forEach((projeto, index) => {
+  const capa = projeto.imagens[0];
+  const fotos = projeto.imagens.map(img => `
+    <div class="foto-card">
+      <img src="imagens/${img}" alt="${projeto.nome}">
+    </div>
+  `).join("");
 
   container.innerHTML += `
-    <div class="projeto-bloco">
-      <div class="projeto-topo">
-        <h3>${projeto.nome}</h3>
-        <p>${projeto.desc}</p>
+    <article class="card projeto-bloco">
+      <div class="projeto-capa">
+        <img src="imagens/${capa}" alt="${projeto.nome}">
       </div>
-      <div class="fotos-projeto">
-        ${fotos}
+
+      <div class="projeto-conteudo">
+        <div class="projeto-topo">
+          <h3>${projeto.nome}</h3>
+          <p>${projeto.desc}</p>
+        </div>
+
+        <div class="projeto-acoes">
+          <span>${projeto.imagens.length} foto${projeto.imagens.length > 1 ? "s" : ""}</span>
+          <button class="ver-fotos" type="button" data-projeto="${index}">Ver fotos</button>
+        </div>
+
+        <div class="fotos-projeto">
+          ${fotos}
+        </div>
       </div>
-    </div>
+    </article>
   `;
+});
+
+/* MENU MOBILE */
+const menuMobile = document.getElementById("menuMobile");
+const menuSite = document.getElementById("menuSite");
+
+if (menuMobile && menuSite) {
+  menuMobile.addEventListener("click", () => {
+    menuSite.classList.toggle("ativo");
+  });
+
+  menuSite.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => menuSite.classList.remove("ativo"));
+  });
+}
+
+/* ABRIR/FECHAR FOTOS DO PROJETO */
+document.addEventListener("click", function(event) {
+  const botao = event.target.closest(".ver-fotos");
+
+  if (botao) {
+    const projeto = botao.closest(".projeto-bloco");
+    projeto.classList.toggle("aberto");
+    botao.textContent = projeto.classList.contains("aberto") ? "Ocultar fotos" : "Ver fotos";
+  }
 });
 
 /* ABRIR IMAGEM EM TELA CHEIA */
 document.addEventListener("click", function(event) {
-  const imagem = event.target.closest(".foto-card img");
+  const imagem = event.target.closest(".foto-card img, .projeto-capa img");
 
   if (imagem) {
     const lightbox = document.getElementById("lightbox");
@@ -117,17 +152,48 @@ document.addEventListener("click", function(event) {
 
     imagemLightbox.src = imagem.src;
     lightbox.classList.add("ativo");
+    lightbox.setAttribute("aria-hidden", "false");
   }
 });
 
-/* FECHAR NO X */
-document.getElementById("fecharLightbox").addEventListener("click", function() {
-  document.getElementById("lightbox").classList.remove("ativo");
-});
+/* FECHAR LIGHTBOX */
+function fecharLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  lightbox.classList.remove("ativo");
+  lightbox.setAttribute("aria-hidden", "true");
+}
 
-/* FECHAR CLICANDO FORA DA IMAGEM */
+document.getElementById("fecharLightbox").addEventListener("click", fecharLightbox);
+
 document.getElementById("lightbox").addEventListener("click", function(event) {
-  if (event.target.id === "lightbox") {
-    document.getElementById("lightbox").classList.remove("ativo");
-  }
+  if (event.target.id === "lightbox") fecharLightbox();
 });
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "Escape") fecharLightbox();
+});
+
+/* WHATSAPP FLUTUANTE */
+const abrirWhatsapp = document.getElementById("abrirWhatsapp");
+const whatsappMenu = document.getElementById("whatsappMenu");
+
+if (abrirWhatsapp && whatsappMenu) {
+  abrirWhatsapp.addEventListener("click", () => {
+    whatsappMenu.classList.toggle("ativo");
+  });
+}
+
+/* REDUZIR CABEÇALHO AO ROLAR */
+const topoSite = document.querySelector(".topo");
+
+function ajustarCabecalho() {
+  if (!topoSite) return;
+  if (window.scrollY > 80) {
+    topoSite.classList.add("reduzido");
+  } else {
+    topoSite.classList.remove("reduzido");
+  }
+}
+
+window.addEventListener("scroll", ajustarCabecalho);
+ajustarCabecalho();
