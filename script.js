@@ -183,17 +183,32 @@ if (abrirWhatsapp && whatsappMenu) {
   });
 }
 
-/* REDUZIR CABEÇALHO AO ROLAR */
+/* ESCONDER CABEÇALHO INTEIRO AO ROLAR PARA BAIXO */
 const topoSite = document.querySelector(".topo");
+let ultimaPosicaoScroll = window.pageYOffset || document.documentElement.scrollTop;
 
 function ajustarCabecalho() {
   if (!topoSite) return;
-  if (window.scrollY > 80) {
-    topoSite.classList.add("reduzido");
-  } else {
-    topoSite.classList.remove("reduzido");
+
+  const posicaoAtual = window.pageYOffset || document.documentElement.scrollTop;
+
+  if (posicaoAtual <= 20) {
+    topoSite.classList.remove("header-escondido");
+    topoSite.classList.add("header-visivel");
+    ultimaPosicaoScroll = posicaoAtual;
+    return;
   }
+
+  if (posicaoAtual > ultimaPosicaoScroll && posicaoAtual > 120) {
+    topoSite.classList.add("header-escondido");
+    topoSite.classList.remove("header-visivel");
+  } else if (posicaoAtual < ultimaPosicaoScroll) {
+    topoSite.classList.remove("header-escondido");
+    topoSite.classList.add("header-visivel");
+  }
+
+  ultimaPosicaoScroll = Math.max(posicaoAtual, 0);
 }
 
-window.addEventListener("scroll", ajustarCabecalho);
+window.addEventListener("scroll", ajustarCabecalho, { passive: true });
 ajustarCabecalho();
