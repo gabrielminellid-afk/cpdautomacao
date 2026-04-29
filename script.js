@@ -81,43 +81,44 @@ const projetos = [
   }
 ];
 
-
 const container = document.getElementById("lista-projetos");
 
-projetos.forEach((projeto, index) => {
-  const capa = projeto.imagens[0];
-  const fotos = projeto.imagens.map(img => `
-    <div class="foto-card">
-      <img src="imagens/${img}" alt="${projeto.nome}">
-    </div>
-  `).join("");
+if (container) {
+  projetos.forEach((projeto, index) => {
+    const capa = projeto.imagens[0];
+    const fotos = projeto.imagens.map(img => `
+      <button class="foto-card" type="button" data-img="imagens/${img}" aria-label="Ampliar foto do projeto ${projeto.nome}">
+        <img src="imagens/${img}" alt="${projeto.nome}">
+      </button>
+    `).join("");
 
-  container.innerHTML += `
-    <article class="card projeto-bloco">
-      <div class="projeto-capa">
-        <img src="imagens/${capa}" alt="${projeto.nome}">
-      </div>
+    container.innerHTML += `
+      <article class="projeto-bloco reveal">
+        <button class="projeto-capa" type="button" data-img="imagens/${capa}" aria-label="Ampliar capa do projeto ${projeto.nome}">
+          <img src="imagens/${capa}" alt="${projeto.nome}">
+        </button>
 
-      <div class="projeto-conteudo">
-        <div class="projeto-topo">
-          <h3>${projeto.nome}</h3>
-          <p>${projeto.desc}</p>
+        <div class="projeto-conteudo">
+          <div>
+            <span class="projeto-numero">Projeto ${String(index + 1).padStart(2, "0")}</span>
+            <h3>${projeto.nome}</h3>
+            <p>${projeto.desc}</p>
+          </div>
+
+          <div class="projeto-acoes">
+            <span>${projeto.imagens.length} foto${projeto.imagens.length > 1 ? "s" : ""}</span>
+            <button class="ver-fotos" type="button">Ver fotos</button>
+          </div>
+
+          <div class="fotos-projeto">
+            ${fotos}
+          </div>
         </div>
+      </article>
+    `;
+  });
+}
 
-        <div class="projeto-acoes">
-          <span>${projeto.imagens.length} foto${projeto.imagens.length > 1 ? "s" : ""}</span>
-          <button class="ver-fotos" type="button" data-projeto="${index}">Ver fotos</button>
-        </div>
-
-        <div class="fotos-projeto">
-          ${fotos}
-        </div>
-      </div>
-    </article>
-  `;
-});
-
-/* MENU MOBILE */
 const menuMobile = document.getElementById("menuMobile");
 const menuSite = document.getElementById("menuSite");
 
@@ -131,80 +132,76 @@ if (menuMobile && menuSite) {
   });
 }
 
-/* ABRIR/FECHAR FOTOS DO PROJETO */
 document.addEventListener("click", function(event) {
   const botao = event.target.closest(".ver-fotos");
+  if (!botao) return;
 
-  if (botao) {
-    const projeto = botao.closest(".projeto-bloco");
-    projeto.classList.toggle("aberto");
-    botao.textContent = projeto.classList.contains("aberto") ? "Ocultar fotos" : "Ver fotos";
-  }
+  const projeto = botao.closest(".projeto-bloco");
+  projeto.classList.toggle("aberto");
+  botao.textContent = projeto.classList.contains("aberto") ? "Ocultar fotos" : "Ver fotos";
 });
 
-/* ABRIR IMAGEM EM TELA CHEIA */
-document.addEventListener("click", function(event) {
-  const imagem = event.target.closest(".foto-card img, .projeto-capa img");
-
-  if (imagem) {
-    const lightbox = document.getElementById("lightbox");
-    const imagemLightbox = document.getElementById("imagemLightbox");
-
-    imagemLightbox.src = imagem.src;
-    lightbox.classList.add("ativo");
-    lightbox.setAttribute("aria-hidden", "false");
-  }
-});
-
-/* FECHAR LIGHTBOX */
-function fecharLightbox() {
+function abrirLightbox(src) {
   const lightbox = document.getElementById("lightbox");
-  lightbox.classList.remove("ativo");
-  lightbox.setAttribute("aria-hidden", "true");
+  const imagemLightbox = document.getElementById("imagemLightbox");
+  if (!lightbox || !imagemLightbox || !src) return;
+
+  imagemLightbox.src = src;
+  lightbox.classList.add("ativo");
+  lightbox.setAttribute("aria-hidden", "false");
 }
 
-document.getElementById("fecharLightbox").addEventListener("click", fecharLightbox);
-
-document.getElementById("lightbox").addEventListener("click", function(event) {
-  if (event.target.id === "lightbox") fecharLightbox();
+document.addEventListener("click", function(event) {
+  const alvo = event.target.closest("[data-img]");
+  if (alvo) abrirLightbox(alvo.dataset.img);
 });
 
+function fecharLightbox() {
+  const lightbox = document.getElementById("lightbox");
+  const imagemLightbox = document.getElementById("imagemLightbox");
+  if (!lightbox) return;
+  lightbox.classList.remove("ativo");
+  lightbox.setAttribute("aria-hidden", "true");
+  if (imagemLightbox) imagemLightbox.src = "";
+}
+
+const fechar = document.getElementById("fecharLightbox");
+const lightbox = document.getElementById("lightbox");
+if (fechar) fechar.addEventListener("click", fecharLightbox);
+if (lightbox) {
+  lightbox.addEventListener("click", function(event) {
+    if (event.target.id === "lightbox") fecharLightbox();
+  });
+}
 document.addEventListener("keydown", function(event) {
   if (event.key === "Escape") fecharLightbox();
 });
 
-/* WHATSAPP FLUTUANTE */
 const abrirWhatsapp = document.getElementById("abrirWhatsapp");
 const whatsappMenu = document.getElementById("whatsappMenu");
-
 if (abrirWhatsapp && whatsappMenu) {
   abrirWhatsapp.addEventListener("click", () => {
     whatsappMenu.classList.toggle("ativo");
   });
 }
 
-/* ESCONDER CABEÇALHO INTEIRO AO ROLAR PARA BAIXO */
 const topoSite = document.querySelector(".topo");
 let ultimaPosicaoScroll = window.pageYOffset || document.documentElement.scrollTop;
 
 function ajustarCabecalho() {
   if (!topoSite) return;
-
   const posicaoAtual = window.pageYOffset || document.documentElement.scrollTop;
 
-  if (posicaoAtual <= 20) {
-    topoSite.classList.remove("header-escondido");
-    topoSite.classList.add("header-visivel");
-    ultimaPosicaoScroll = posicaoAtual;
-    return;
+  if (posicaoAtual > 40) {
+    topoSite.classList.add("compacto");
+  } else {
+    topoSite.classList.remove("compacto");
   }
 
-  if (posicaoAtual > ultimaPosicaoScroll && posicaoAtual > 120) {
+  if (posicaoAtual > ultimaPosicaoScroll && posicaoAtual > 160) {
     topoSite.classList.add("header-escondido");
-    topoSite.classList.remove("header-visivel");
-  } else if (posicaoAtual < ultimaPosicaoScroll) {
+  } else {
     topoSite.classList.remove("header-escondido");
-    topoSite.classList.add("header-visivel");
   }
 
   ultimaPosicaoScroll = Math.max(posicaoAtual, 0);
@@ -212,3 +209,14 @@ function ajustarCabecalho() {
 
 window.addEventListener("scroll", ajustarCabecalho, { passive: true });
 ajustarCabecalho();
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("ativo");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
