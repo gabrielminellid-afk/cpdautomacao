@@ -1,222 +1,225 @@
-const projetos = [
+const WHATSAPP_CPD = "5519991422109";
+const EMAIL_CPD = "cpdautomacao@outlook.com.br";
+const EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
+
+function encodePath(path){ return path.split('/').map(encodeURIComponent).join('/'); }
+function imgBase(base, alt="") { return `<img data-src-base="${base}" alt="${alt}">`; }
+function resolveImage(img){
+  const base = img.dataset.srcBase;
+  if(!base || img.dataset.resolved) return;
+  img.dataset.resolved = "1";
+  let index = 0;
+  const tryNext = () => {
+    if(index >= EXTENSIONS.length){
+      const parent = img.parentElement;
+      img.remove();
+      if(parent && !parent.querySelector('.missing-box')){
+        const div = document.createElement('div');
+        div.className = 'missing-box';
+        div.textContent = `Imagem aguardando arquivo: ${base}`;
+        parent.appendChild(div);
+      }
+      return;
+    }
+    img.src = encodePath(base + EXTENSIONS[index]);
+    index++;
+  };
+  img.onerror = tryNext;
+  tryNext();
+}
+function resolveAll(scope=document){ scope.querySelectorAll('img[data-src-base]').forEach(resolveImage); }
+function setImageBase(img, base, alt=""){
+  if(!img || !base) return;
+  img.dataset.srcBase = base;
+  img.dataset.resolved = "";
+  if(alt) img.alt = alt;
+  img.onerror = null;
+  img.removeAttribute('src');
+  const missing = img.parentElement?.querySelector('.missing-box');
+  if(missing) missing.remove();
+  resolveImage(img);
+}
+
+const destaques = [
   {
-    nome: "Automação total da planta (CLP + IHM)",
-    desc: "Sistema completo de automação da planta, com controle por CLPs e IHMs, garantindo operação integrada, supervisão e maior eficiência operacional.",
-    imagens: ["dolamia2.jpg","dolamia5.jpg","dolamia6.jpg","dolamia7.jpg","dolamia8.jpg"]
+    titulo: "Relatórios e monitoramento online",
+    categoria: "Destaque 01",
+    pasta: "relatorio e monitoramento online",
+    desc: "Supervisão remota com gráficos, históricos, indicadores e relatórios técnicos para acompanhamento das aplicações industriais em tempo real.",
+    imagens: ["automaçãominas", "relatorio1", "relatorio2", "vsia"]
   },
   {
-    nome: "Automação de planta de calcário",
-    desc: "Sistema de automação para planta completa com 6 moinhos e 12 motores, integrando controle, operação e supervisão do processo.",
-    imagens: ["para.jpg","para1.jpg","para2.jpg","para3.jpg","para4.jpg","para8.jpg","para9.jpg","para10.jpg"]
+    titulo: "IHM personalizada sob medida",
+    categoria: "Destaque 02",
+    pasta: "ihm personalizada",
+    desc: "Desenvolvimento de telas interativas, modernas e intuitivas, criadas conforme a necessidade do processo e do operador.",
+    imagens: ["ihm1", "ihm2", "ihm3", "ihm4", "ihm5"]
   },
   {
-    nome: "Automação com supervisório remoto",
-    desc: "Painel de automação com IHM e supervisão remota, permitindo acompanhamento e controle do processo diretamente pelo celular.",
-    imagens: ["automaçãominas.jpg","automaçãominas1.jpg","automaçãominas2.jpg"]
-  },
-  {
-    nome: "Automação para acionamento do VSI",
-    desc: "Sistema automatizado para controle do VSI, com integração e monitoramento do equipamento.",
-    imagens: ["vsi.jpg","vsia.jpg"]
-  },
-  {
-    nome: "Painel de acionamento do primário",
-    desc: "Painel de comando e acionamento do sistema primário da britagem, com organização e padronização elétrica.",
-    imagens: ["alimentado.jpg","alimentador1.jpg","alimentador2.jpg","alimentador3.jpg","alimentador4.jpg","alimentador5.jpg","alimentador6.jpg"]
-  },
-  {
-    nome: "Painel de britagem",
-    desc: "Painel completo para operação do sistema de britagem, com estrutura elétrica robusta e confiável.",
-    imagens: ["alusa.jpg","alusa1.jpg","alusa2.jpg","alusa3.jpg","alusa4.jpg","alusa5.jpg","alusa6.jpg","alusa7.jpg","alusa8.jpg","alusa9.jpg","alusa10.jpg","alusa11.jpg","alusa12.jpg","alusa13.jpg","alusa14.jpg","alusa15.jpg","alusa16.jpg","alusa17.jpg"]
-  },
-  {
-    nome: "Correção de fator de potência",
-    desc: "Painel de banco de capacitores para melhoria da eficiência energética e correção do fator de potência.",
-    imagens: ["capacitor.jpg","capacitor1.jpg"]
-  },
-  {
-    nome: "Painel de britagem - Chapecó",
-    desc: "Sistema de acionamento para britagem com organização elétrica e confiabilidade operacional.",
-    imagens: ["chapeco.jpg","chapeco1.jpg","chapeco3.jpg","chapeco5.jpg","chapeco6.jpg","chapeco7.jpg","chapeco8.jpg","chapeco9.jpg"]
-  },
-  {
-    nome: "Painel para dobradeira",
-    desc: "Painel de comando para máquina dobradeira de escapamento, com controle e acionamento dedicado.",
-    imagens: ["dobradeira.jpg","dobradeira1.jpg"]
-  },
-  {
-    nome: "Painel de acionamento do primário",
-    desc: "Painel industrial para acionamento de sistema primário, com foco em segurança e desempenho.",
-    imagens: ["getel1.jpg","getel3.jpg","getel6.jpg","getel8.jpg","getel9.jpg","getel10.jpg","getel11.jpg","getel12.jpg","getel13.jpg"]
-  },
-  {
-    nome: "Unidade hidráulica (retrofit e travamento)",
-    desc: "Reforma e retrofit de unidade hidráulica com melhorias no sistema de travamento e operação.",
-    imagens: ["hidraulica.jpg","hidraulica1.jpg","hidraulica2.jpg","hidraulica3.jpg","hidraulica4.jpg","hidraulica5.jpg","hidraulica6.jpg","hidraulica7.jpg","hidraulica8.jpg","hidraulica9.jpg"]
-  },
-  {
-    nome: "Lubrificação industrial",
-    desc: "Sistema de lubrificação com reforma e melhorias para garantir eficiência e durabilidade dos equipamentos.",
-    imagens: ["lubrificacao.jpg","lubrificacao1.jpg","lubrificacao2.jpg","lubrificacao3.jpg"]
-  },
-  {
-    nome: "Reforma de cabine de controle",
-    desc: "Reforma completa da cabine de controle da britagem, incluindo atualização elétrica e organização do sistema.",
-    imagens: ["reforma.jpg","reforma1.jpg","reforma2.jpg","reforma3.jpg","reforma4.jpg","reforma5.jpg","reforma6.jpg","reforma7.jpg","reforma8.jpg","reforma9.jpg","reforma10.jpg"]
-  },
-  {
-    nome: "Painel de alarme do britador",
-    desc: "Sistema de alarme e acionamento para monitoramento e segurança do britador.",
-    imagens: ["alarme.jpg","alarme1.jpg","alarme2.jpg"]
-  },
-  {
-    nome: "Controle de unidade hidráulica",
-    desc: "Painel de controle para unidade hidráulica com comando dedicado e operação segura.",
-    imagens: ["lubrificação2.jpg","lubrificaçãop1.jpg"]
-  },
-  {
-    nome: "Partida direta de bomba",
-    desc: "Painel de partida direta para bomba de água com controle automático e manual.",
-    imagens: ["paridadiretabombade3cv.jpg","partidadiretabombade3cv1.jpg"]
+    titulo: "Pré-montagem e pré-visualização técnica",
+    categoria: "Destaque 03",
+    pasta: "pre montagem",
+    desc: "Planejamento visual do quadro antes da execução, permitindo validação técnica, organização dos componentes e montagem mais precisa.",
+    imagens: ["desenho"]
   }
 ];
 
-const container = document.getElementById("lista-projetos");
+const projetos = [
+  {nome:"Painel de acionamento do alimentador", categoria:"Painéis", pasta:"alimentador", imagens:["alimentador","alimentador1","alimentador4","alimentador6"], desc:"Painel de acionamento e controle do alimentador, com montagem elétrica organizada, proteção, comando e estrutura preparada para operação industrial."},
+  {nome:"Painéis industriais e acionamentos", categoria:"Painéis", pasta:"alusa", imagens:["alusa1","alusa2","alusa3","alusa9","alusa13"], desc:"Painéis industriais para comando e controle de equipamentos, com foco em segurança, padronização elétrica e confiabilidade operacional."},
+  {nome:"Automação com supervisão remota", categoria:"Automação", pasta:"automacaominas", imagens:["automaçãominas","automaçãominas1","automaçãominas2"], desc:"Sistema de automação com supervisão remota, visualização de dados e apoio à manutenção em tempo real."},
+  {nome:"Automação e painéis para britagem", categoria:"Automação", pasta:"chapeco", imagens:["chapeco3","chapeco5","chapeco6","chapeco7"], desc:"Automação e painéis aplicados em sistema de britagem, com comando elétrico, acionamentos e acompanhamento técnico em campo."},
+  {nome:"Correção de fator de potência", categoria:"Painéis", pasta:"correção fator de potencia", imagens:["capacitor","capacitor1"], desc:"Painel para correção de fator de potência, melhoria da eficiência energética, redução de perdas e adequação da instalação elétrica."},
+  {nome:"Painéis e sistemas de acionamento", categoria:"Painéis", pasta:"getel", imagens:["getel1","getel9","getel12"], desc:"Painéis e sistemas de acionamento industrial desenvolvidos para operação segura, organizada e confiável em ambiente produtivo."},
+  {nome:"Reforma de unidades de lubrificação", categoria:"Hidráulica", pasta:"lubrificação", imagens:["lubrificacao1","lubrificacao2","lubrificacao3","lubrificacao11","lubrificaçãop1"], desc:"Reforma, montagem e manutenção de unidades de lubrificação industrial, com foco em confiabilidade e continuidade operacional."},
+  {nome:"Montagem de quadro e manutenção do equipamento", categoria:"Hidráulica", pasta:"montagem do quadro e manutencao do equipamento", imagens:["hidraulicaelubrificacao","hidraulicaelubrificacao1"], desc:"Montagem de quadro de comando e manutenção integrada do equipamento, unindo elétrica, hidráulica e automação para funcionamento seguro em campo."},
+  {nome:"Partida e controle dos moinhos", categoria:"Automação", pasta:"partida dos moinhos", imagens:["para","para1","para2","para3","para4","para8","para9","para10"], desc:"Sistema de partida, acionamento e controle dos moinhos, com painéis industriais, supervisão e operação estruturada para o processo produtivo."},
+  {nome:"Reforma e retrofit de CCM", categoria:"Retrofit", pasta:"reforma do ccm", imagens:["reforma1","reforma3","reforma4","reforma5","reforma6","reforma7","reforma8","reforma9","reforma10"], desc:"Reforma e retrofit de CCMs e painéis industriais, com reorganização elétrica, substituição de componentes e modernização do sistema."},
+  {nome:"Unidades hidráulicas de travamento", categoria:"Hidráulica", pasta:"unidade de travamento", imagens:["travamento1","travamento2","travamento3"], desc:"Reforma, manutenção e suporte em unidades hidráulicas de travamento, com diagnóstico técnico, melhorias no sistema e atendimento em campo."}
+];
 
-if (container) {
-  projetos.forEach((projeto, index) => {
-    const capa = projeto.imagens[0];
-    const fotos = projeto.imagens.map(img => `
-      <button class="foto-card" type="button" data-img="imagens/${img}" aria-label="Ampliar foto do projeto ${projeto.nome}">
-        <img src="imagens/${img}" alt="${projeto.nome}">
-      </button>
-    `).join("");
+function pathOf(item, name){ return `${item.pasta}/${name}`; }
 
-    container.innerHTML += `
-      <article class="projeto-bloco reveal">
-        <button class="projeto-capa" type="button" data-img="imagens/${capa}" aria-label="Ampliar capa do projeto ${projeto.nome}">
-          <img src="imagens/${capa}" alt="${projeto.nome}">
-        </button>
-
-        <div class="projeto-conteudo">
-          <div>
-            <span class="projeto-numero">Projeto ${String(index + 1).padStart(2, "0")}</span>
-            <h3>${projeto.nome}</h3>
-            <p>${projeto.desc}</p>
-          </div>
-
-          <div class="projeto-acoes">
-            <span>${projeto.imagens.length} foto${projeto.imagens.length > 1 ? "s" : ""}</span>
-            <button class="ver-fotos" type="button">Ver fotos</button>
-          </div>
-
-          <div class="fotos-projeto">
-            ${fotos}
-          </div>
-        </div>
-      </article>
-    `;
-  });
+function renderHighlights(){
+  const grid = document.getElementById('highlightGrid');
+  if(!grid) return;
+  grid.innerHTML = destaques.map((item, idx) => {
+    const cover = pathOf(item, item.imagens[0]);
+    const minis = item.imagens.map(img => `<button type="button" data-open="${pathOf(item,img)}" aria-label="Abrir ${item.titulo}">${imgBase(pathOf(item,img), item.titulo)}</button>`).join('');
+    return `<article class="highlight-card reveal">
+      <button class="highlight-media" type="button" data-open="${cover}">${imgBase(cover, item.titulo)}</button>
+      <div class="highlight-body"><small>${item.categoria}</small><h3>${item.titulo}</h3><p>${item.desc}</p><div class="mini-gallery">${minis}</div></div>
+    </article>`;
+  }).join('');
+  resolveAll(grid);
 }
 
-const menuMobile = document.getElementById("menuMobile");
-const menuSite = document.getElementById("menuSite");
-
-if (menuMobile && menuSite) {
-  menuMobile.addEventListener("click", () => {
-    menuSite.classList.toggle("ativo");
-  });
-
-  menuSite.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => menuSite.classList.remove("ativo"));
-  });
+function renderFilters(){
+  const area = document.getElementById('filters');
+  if(!area) return;
+  const cats = ['Todos', ...new Set(projetos.map(p=>p.categoria))];
+  area.innerHTML = cats.map((cat,i)=>`<button class="filter-btn ${i===0?'active':''}" data-filter="${cat}" type="button">${cat}</button>`).join('');
 }
 
-document.addEventListener("click", function(event) {
-  const botao = event.target.closest(".ver-fotos");
-  if (!botao) return;
+function setupHeroRotator(){
+  const card = document.querySelector('.hero-card-rotator');
+  if(!card) return;
 
-  const projeto = botao.closest(".projeto-bloco");
-  projeto.classList.toggle("aberto");
-  botao.textContent = projeto.classList.contains("aberto") ? "Ocultar fotos" : "Ver fotos";
-});
+  const img = card.querySelector('img[data-src-base]');
+  const labelTitle = card.querySelector('span');
+  const labelText = card.querySelector('strong');
 
-function abrirLightbox(src) {
-  const lightbox = document.getElementById("lightbox");
-  const imagemLightbox = document.getElementById("imagemLightbox");
-  if (!lightbox || !imagemLightbox || !src) return;
-
-  imagemLightbox.src = src;
-  lightbox.classList.add("ativo");
-  lightbox.setAttribute("aria-hidden", "false");
-}
-
-document.addEventListener("click", function(event) {
-  const alvo = event.target.closest("[data-img]");
-  if (alvo) abrirLightbox(alvo.dataset.img);
-});
-
-function fecharLightbox() {
-  const lightbox = document.getElementById("lightbox");
-  const imagemLightbox = document.getElementById("imagemLightbox");
-  if (!lightbox) return;
-  lightbox.classList.remove("ativo");
-  lightbox.setAttribute("aria-hidden", "true");
-  if (imagemLightbox) imagemLightbox.src = "";
-}
-
-const fechar = document.getElementById("fecharLightbox");
-const lightbox = document.getElementById("lightbox");
-if (fechar) fechar.addEventListener("click", fecharLightbox);
-if (lightbox) {
-  lightbox.addEventListener("click", function(event) {
-    if (event.target.id === "lightbox") fecharLightbox();
-  });
-}
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape") fecharLightbox();
-});
-
-const abrirWhatsapp = document.getElementById("abrirWhatsapp");
-const whatsappMenu = document.getElementById("whatsappMenu");
-if (abrirWhatsapp && whatsappMenu) {
-  abrirWhatsapp.addEventListener("click", () => {
-    whatsappMenu.classList.toggle("ativo");
-  });
-}
-
-const topoSite = document.querySelector(".topo");
-let ultimaPosicaoScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-function ajustarCabecalho() {
-  if (!topoSite) return;
-  const posicaoAtual = window.pageYOffset || document.documentElement.scrollTop;
-
-  if (posicaoAtual > 40) {
-    topoSite.classList.add("compacto");
-  } else {
-    topoSite.classList.remove("compacto");
-  }
-
-  if (posicaoAtual > ultimaPosicaoScroll && posicaoAtual > 160) {
-    topoSite.classList.add("header-escondido");
-  } else {
-    topoSite.classList.remove("header-escondido");
-  }
-
-  ultimaPosicaoScroll = Math.max(posicaoAtual, 0);
-}
-
-window.addEventListener("scroll", ajustarCabecalho, { passive: true });
-ajustarCabecalho();
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("ativo");
-      observer.unobserve(entry.target);
+  const slides = [
+    {
+      titulo: 'IHM sob medida',
+      subtitulo: 'Telas interativas, intuitivas e personalizadas para o processo',
+      base: 'ihm personalizada/ihm1',
+      alt: 'IHM personalizada CPD'
+    },
+    {
+      titulo: 'Monitoramento remoto',
+      subtitulo: 'Dados, relatórios e histórico online da aplicação',
+      base: 'relatorio e monitoramento online/relatorio2',
+      alt: 'Monitoramento remoto CPD'
+    },
+    {
+      titulo: 'Pré-montagem técnica',
+      subtitulo: 'Pré-visualização técnica do quadro antes da montagem',
+      base: 'pre montagem/desenho',
+      alt: 'Pré-montagem técnica CPD'
     }
-  });
-}, { threshold: 0.12 });
+  ];
 
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  let index = 0;
+  const update = () => {
+    const item = slides[index];
+    setImageBase(img, item.base, item.alt);
+    card.dataset.open = item.base;
+    if(labelTitle) labelTitle.textContent = item.titulo;
+    if(labelText) labelText.textContent = item.subtitulo;
+  };
+
+  update();
+  setInterval(() => {
+    card.classList.add('is-switching');
+    setTimeout(() => {
+      index = (index + 1) % slides.length;
+      update();
+      card.classList.remove('is-switching');
+    }, 260);
+  }, 3600);
+}
+
+function renderProjects(){
+  const grid = document.getElementById('projectGrid');
+  if(!grid) return;
+  grid.innerHTML = projetos.map((p, idx)=>{
+    const cover = pathOf(p,p.imagens[0]);
+    const thumbs = p.imagens.map(img=>`<button type="button" data-open="${pathOf(p,img)}">${imgBase(pathOf(p,img),p.nome)}</button>`).join('');
+    return `<article class="project-card reveal" data-category="${p.categoria}">
+      <button class="project-media" type="button" data-open="${cover}">${imgBase(cover,p.nome)}<span class="project-category">${p.categoria}</span></button>
+      <div class="project-body"><h3>${p.nome}</h3><p>${p.desc}</p><div class="project-actions"><span>${p.imagens.length} foto${p.imagens.length>1?'s':''}</span><button type="button" class="toggle-gallery">Ver fotos</button></div></div>
+      <div class="gallery-inline">${thumbs}</div>
+    </article>`;
+  }).join('');
+  resolveAll(grid);
+}
+
+function setupFilters(){
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.project-card').forEach(card=>card.classList.toggle('hidden', f !== 'Todos' && card.dataset.category !== f));
+    });
+  });
+}
+
+function setupMenu(){
+  const toggle = document.getElementById('menuToggle');
+  const menu = document.getElementById('menuSite');
+  if(toggle && menu){ toggle.addEventListener('click',()=>menu.classList.toggle('active')); menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('active'))); }
+  const header = document.querySelector('.site-header');
+  const update = () => header && header.classList.toggle('scrolled', window.scrollY > 20);
+  update(); window.addEventListener('scroll', update, {passive:true});
+}
+
+function setupReveal(){
+  const els = document.querySelectorAll('.reveal');
+  if(!els.length) return;
+  const io = new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible'); io.unobserve(e.target);} }),{threshold:.12});
+  els.forEach(el=>io.observe(el));
+}
+
+function setupGallery(){
+  document.addEventListener('click', e=>{
+    const toggle = e.target.closest('.toggle-gallery');
+    if(toggle){ const card = toggle.closest('.project-card'); card.classList.toggle('open'); toggle.textContent = card.classList.contains('open') ? 'Ocultar fotos' : 'Ver fotos'; return; }
+    const open = e.target.closest('[data-open]');
+    if(open){ openLightbox(open.dataset.open); }
+  });
+  document.getElementById('closeLightbox')?.addEventListener('click', closeLightbox);
+  document.getElementById('lightbox')?.addEventListener('click', e=>{ if(e.target.id==='lightbox') closeLightbox(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+}
+function openLightbox(base){
+  const box = document.getElementById('lightbox'); const img = document.getElementById('lightboxImg');
+  if(!box || !img) return;
+  img.dataset.srcBase = base; img.dataset.resolved = ''; img.onerror = null; resolveImage(img);
+  box.classList.add('active'); box.setAttribute('aria-hidden','false');
+}
+function closeLightbox(){ const box=document.getElementById('lightbox'); const img=document.getElementById('lightboxImg'); if(box&&img){box.classList.remove('active'); box.setAttribute('aria-hidden','true'); img.removeAttribute('src');}}
+
+function formDataText(){
+  const form = document.getElementById('contactForm'); const fd = new FormData(form);
+  const nome = fd.get('nome')||''; const email=fd.get('email')||''; const tel=fd.get('telefone')||''; const assunto=fd.get('assunto')||''; const msg=fd.get('mensagem')||'';
+  return {nome,email,tel,assunto,msg, body:`Olá, sou ${nome}. Vim pelo site da CPD Automação Industrial.\n\nE-mail: ${email}\nTelefone: ${tel || 'não informado'}\nAssunto: ${assunto}\n\nMensagem:\n${msg}`};
+}
+function validateForm(){ const form=document.getElementById('contactForm'); if(!form.checkValidity()){form.reportValidity(); return false;} return true; }
+function setupContact(){
+  document.getElementById('sendWhatsapp')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); window.open(`https://wa.me/${WHATSAPP_CPD}?text=${encodeURIComponent(d.body)}`,'_blank','noopener'); });
+  document.getElementById('sendEmail')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); const subject = `Contato pelo site CPD - ${d.assunto}`; window.location.href = `mailto:${EMAIL_CPD}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(d.body)}`; });
+}
+
+renderHighlights(); renderFilters(); renderProjects(); resolveAll(); setupHeroRotator(); setupFilters(); setupMenu(); setupReveal(); setupGallery(); setupContact();
