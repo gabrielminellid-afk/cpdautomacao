@@ -1,39 +1,16 @@
-CPD Automação Industrial - Novo site preview
+CPD Automação Industrial - Site novo v6
 
-Arquivos principais:
-- index.html
-- style.css
-- script.js
-- CNAME
-- robots.txt
-- sitemap.xml
+IMPORTANTE:
+Esta versão foi ajustada para o GitHub com nomes de pastas sem acentos e sem espaços.
+Isso evita erro de imagem quebrada no GitHub Pages.
 
-Pastas esperadas pelo site:
-- logo
-- relatorio e monitoramento online
-- ihm personalizada
-- pre montagem
-- alimentador
-- alusa
-- automacaominas
-- chapeco
-- controle automatico de velocidade e corrente com monitoramento remoto
-- correção fator de potencia
-- getel
-- lubrificação
-- montagem do quadro e manutencao do equipamento
-- partida dos moinhos
-- reforma do ccm
-- unidade de travamento
+Como subir:
+1. Extraia este ZIP.
+2. Abra a pasta extraída.
+3. Selecione TUDO que está dentro dela: index.html, style.css, script.js, CNAME, robots.txt, sitemap.xml e todas as pastas.
+4. Arraste tudo para o GitHub em Add file > Upload files.
+5. Faça Commit changes.
 
-Observação importante:
-O script tenta carregar automaticamente .jpg, .jpeg, .png e .webp. Assim, se o Windows estiver escondendo a extensão, basta manter o nome base correto, exemplo: ihm1, relatorio1, travamento1, etc.
-
-Os destaques usados só no topo:
-- relatorio e monitoramento online
-- ihm personalizada
-- pre montagem
-
-Formulário:
-- Enviar pelo WhatsApp abre a mensagem pronta no WhatsApp.
-- Enviar por e-mail abre o aplicativo de e-mail do cliente com assunto e mensagem prontos.
+Não envie o ZIP fechado.
+Não renomeie as pastas.
+O arquivo CNAME deve ficar na raiz para manter cpdautomacao.com.br.

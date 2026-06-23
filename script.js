@@ -44,21 +44,21 @@ const destaques = [
   {
     titulo: "Relatórios e monitoramento online",
     categoria: "Destaque 01",
-    pasta: "relatorio e monitoramento online",
+    pasta: "relatorio-monitoramento-online",
     desc: "Supervisão remota com gráficos, históricos, indicadores e relatórios técnicos para acompanhamento das aplicações industriais em tempo real.",
-    imagens: ["automaçãominas", "relatorio1", "relatorio2", "vsia"]
+    imagens: ["automacao-minas", "relatorio1", "relatorio2", "vsia"]
   },
   {
     titulo: "IHM personalizada sob medida",
     categoria: "Destaque 02",
-    pasta: "ihm personalizada",
+    pasta: "ihm-personalizada",
     desc: "Desenvolvimento de telas interativas, modernas e intuitivas, criadas conforme a necessidade do processo e do operador.",
     imagens: ["ihm1", "ihm2", "ihm3", "ihm4", "ihm5"]
   },
   {
     titulo: "Pré-montagem e pré-visualização técnica",
     categoria: "Destaque 03",
-    pasta: "pre montagem",
+    pasta: "pre-montagem",
     desc: "Planejamento visual do quadro antes da execução, permitindo validação técnica, organização dos componentes e montagem mais precisa.",
     imagens: ["desenho"]
   }
@@ -67,15 +67,15 @@ const destaques = [
 const projetos = [
   {nome:"Painel de acionamento do alimentador", categoria:"Painéis", pasta:"alimentador", imagens:["alimentador","alimentador1","alimentador4","alimentador6"], desc:"Painel de acionamento e controle do alimentador, com montagem elétrica organizada, proteção, comando e estrutura preparada para operação industrial."},
   {nome:"Painéis industriais e acionamentos", categoria:"Painéis", pasta:"alusa", imagens:["alusa1","alusa2","alusa3","alusa9","alusa13"], desc:"Painéis industriais para comando e controle de equipamentos, com foco em segurança, padronização elétrica e confiabilidade operacional."},
-  {nome:"Automação com supervisão remota", categoria:"Automação", pasta:"automacaominas", imagens:["automaçãominas","automaçãominas1","automaçãominas2"], desc:"Sistema de automação com supervisão remota, visualização de dados e apoio à manutenção em tempo real."},
+  {nome:"Automação com supervisão remota", categoria:"Automação", pasta:"automacao-minas", imagens:["automacao-minas","automacao-minas1","automacao-minas2"], desc:"Sistema de automação com supervisão remota, visualização de dados e apoio à manutenção em tempo real."},
   {nome:"Automação e painéis para britagem", categoria:"Automação", pasta:"chapeco", imagens:["chapeco3","chapeco5","chapeco6","chapeco7"], desc:"Automação e painéis aplicados em sistema de britagem, com comando elétrico, acionamentos e acompanhamento técnico em campo."},
-  {nome:"Correção de fator de potência", categoria:"Painéis", pasta:"correção fator de potencia", imagens:["capacitor","capacitor1"], desc:"Painel para correção de fator de potência, melhoria da eficiência energética, redução de perdas e adequação da instalação elétrica."},
+  {nome:"Correção de fator de potência", categoria:"Painéis", pasta:"correcao-fator-potencia", imagens:["capacitor","capacitor1"], desc:"Painel para correção de fator de potência, melhoria da eficiência energética, redução de perdas e adequação da instalação elétrica."},
   {nome:"Painéis e sistemas de acionamento", categoria:"Painéis", pasta:"getel", imagens:["getel1","getel9","getel12"], desc:"Painéis e sistemas de acionamento industrial desenvolvidos para operação segura, organizada e confiável em ambiente produtivo."},
-  {nome:"Reforma de unidades de lubrificação", categoria:"Hidráulica", pasta:"lubrificação", imagens:["lubrificacao1","lubrificacao2","lubrificacao3","lubrificacao11","lubrificaçãop1"], desc:"Reforma, montagem e manutenção de unidades de lubrificação industrial, com foco em confiabilidade e continuidade operacional."},
-  {nome:"Montagem de quadro e manutenção do equipamento", categoria:"Hidráulica", pasta:"montagem do quadro e manutencao do equipamento", imagens:["hidraulicaelubrificacao","hidraulicaelubrificacao1"], desc:"Montagem de quadro de comando e manutenção integrada do equipamento, unindo elétrica, hidráulica e automação para funcionamento seguro em campo."},
-  {nome:"Partida e controle dos moinhos", categoria:"Automação", pasta:"partida dos moinhos", imagens:["para","para1","para2","para3","para4","para8","para9","para10"], desc:"Sistema de partida, acionamento e controle dos moinhos, com painéis industriais, supervisão e operação estruturada para o processo produtivo."},
-  {nome:"Reforma e retrofit de CCM", categoria:"Retrofit", pasta:"reforma do ccm", imagens:["reforma1","reforma3","reforma4","reforma5","reforma6","reforma7","reforma8","reforma9","reforma10"], desc:"Reforma e retrofit de CCMs e painéis industriais, com reorganização elétrica, substituição de componentes e modernização do sistema."},
-  {nome:"Unidades hidráulicas de travamento", categoria:"Hidráulica", pasta:"unidade de travamento", imagens:["travamento1","travamento2","travamento3"], desc:"Reforma, manutenção e suporte em unidades hidráulicas de travamento, com diagnóstico técnico, melhorias no sistema e atendimento em campo."}
+  {nome:"Reforma de unidades de lubrificacao", categoria:"Hidráulica", pasta:"lubrificacao", imagens:["lubrificacao1","lubrificacao2","lubrificacao3","lubrificacao11","lubrificacaop1"], desc:"Reforma, montagem e manutenção de unidades de lubrificacao industrial, com foco em confiabilidade e continuidade operacional."},
+  {nome:"Montagem de quadro e manutenção do equipamento", categoria:"Hidráulica", pasta:"montagem-quadro-manutencao-equipamento", imagens:["hidraulicaelubrificacao","hidraulicaelubrificacao1"], desc:"Montagem de quadro de comando e manutenção integrada do equipamento, unindo elétrica, hidráulica e automação para funcionamento seguro em campo."},
+  {nome:"Partida e controle dos moinhos", categoria:"Automação", pasta:"partida-moinhos", imagens:["para","para1","para2","para3","para4","para8","para9","para10"], desc:"Sistema de partida, acionamento e controle dos moinhos, com painéis industriais, supervisão e operação estruturada para o processo produtivo."},
+  {nome:"Reforma e retrofit de CCM", categoria:"Retrofit", pasta:"reforma-ccm", imagens:["reforma1","reforma3","reforma4","reforma5","reforma6","reforma7","reforma8","reforma9","reforma10"], desc:"Reforma e retrofit de CCMs e painéis industriais, com reorganização elétrica, substituição de componentes e modernização do sistema."},
+  {nome:"Unidades hidráulicas de travamento", categoria:"Hidráulica", pasta:"unidade-travamento", imagens:["travamento1","travamento2","travamento3"], desc:"Reforma, manutenção e suporte em unidades hidráulicas de travamento, com diagnóstico técnico, melhorias no sistema e atendimento em campo."}
 ];
 
 function pathOf(item, name){ return `${item.pasta}/${name}`; }
@@ -113,19 +113,19 @@ function setupHeroRotator(){
     {
       titulo: 'IHM sob medida',
       subtitulo: 'Telas interativas, intuitivas e personalizadas para o processo',
-      base: 'ihm personalizada/ihm1',
+      base: 'ihm-personalizada/ihm1',
       alt: 'IHM personalizada CPD'
     },
     {
       titulo: 'Monitoramento remoto',
       subtitulo: 'Dados, relatórios e histórico online da aplicação',
-      base: 'relatorio e monitoramento online/relatorio2',
+      base: 'relatorio-monitoramento-online/relatorio2',
       alt: 'Monitoramento remoto CPD'
     },
     {
       titulo: 'Pré-montagem técnica',
       subtitulo: 'Pré-visualização técnica do quadro antes da montagem',
-      base: 'pre montagem/desenho',
+      base: 'pre-montagem/desenho',
       alt: 'Pré-montagem técnica CPD'
     }
   ];
