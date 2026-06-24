@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://cpdautomacao.com.br/sitemap.xml
