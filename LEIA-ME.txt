@@ -1,0 +1,39 @@
+CPD Automação Industrial - Novo site preview
+
+Arquivos principais:
+- index.html
+- style.css
+- script.js
+- CNAME
+- robots.txt
+- sitemap.xml
+
+Pastas esperadas pelo site:
+- logo
+- relatorio e monitoramento online
+- ihm personalizada
+- pre montagem
+- alimentador
+- alusa
+- automacaominas
+- chapeco
+- controle automatico de velocidade e corrente com monitoramento remoto
+- correção fator de potencia
+- getel
+- lubrificação
+- montagem do quadro e manutencao do equipamento
+- partida dos moinhos
+- reforma do ccm
+- unidade de travamento
+
+Observação importante:
+O script tenta carregar automaticamente .jpg, .jpeg, .png e .webp. Assim, se o Windows estiver escondendo a extensão, basta manter o nome base correto, exemplo: ihm1, relatorio1, travamento1, etc.
+
+Os destaques usados só no topo:
+- relatorio e monitoramento online
+- ihm personalizada
+- pre montagem
+
+Formulário:
+- Enviar pelo WhatsApp abre a mensagem pronta no WhatsApp.
+- Enviar por e-mail abre o aplicativo de e-mail do cliente com assunto e mensagem prontos.
