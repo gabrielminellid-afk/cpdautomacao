@@ -146,3 +146,86 @@
     min-height: 88px;
   }
 }
+@media(max-width: 780px){
+
+  .hero{
+    min-height: auto;
+    padding-top: 105px;
+    padding-bottom: 55px;
+  }
+
+  .hero h1{
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    margin: 18px 0 12px;
+  }
+
+  .hero p{
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .eyebrow{
+    font-size: 10px;
+    padding: 7px 10px;
+    letter-spacing: .08em;
+  }
+
+  .section-head h2,
+  .contact h2{
+    font-size: clamp(25px, 7vw, 32px);
+    line-height: 1.08;
+  }
+
+  .section-head p,
+  .contact-copy p{
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .highlight-body h3,
+  .project-body h3{
+    font-size: 20px;
+  }
+
+  .highlight-body p,
+  .project-body p{
+    font-size: 14px;
+  }
+
+  .brand-text strong{
+    font-size: 19px;
+  }
+
+  .brand img{
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media(max-width: 420px){
+
+  .hero h1{
+    font-size: 30px;
+  }
+
+  .hero p{
+    font-size: 14px;
+  }
+
+  .section-head h2,
+  .contact h2{
+    font-size: 27px;
+  }
+
+  .btn{
+    min-height: 48px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .hero-card-rotator{
+    height: 320px !important;
+  }
+}
