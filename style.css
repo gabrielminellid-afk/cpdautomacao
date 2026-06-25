@@ -651,3 +651,267 @@
     font-size: 9px !important;
   }
 }
+/* ==================================================
+   CORREÇÃO FORTE MOBILE - NÃO CORTAR IMAGENS NO CELULAR
+   Cole no FINAL do style.css
+   ================================================== */
+
+@media (max-width: 780px) {
+
+  .hero {
+    min-height: auto !important;
+    padding-top: 82px !important;
+    padding-bottom: 28px !important;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .hero h1 {
+    font-size: 21px !important;
+    line-height: 1.08 !important;
+    margin: 12px 0 8px !important;
+  }
+
+  .hero p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .eyebrow {
+    font-size: 8px !important;
+    line-height: 1.2 !important;
+    padding: 5px 7px !important;
+    white-space: normal !important;
+  }
+
+  .btn {
+    min-height: 38px !important;
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .hero-mini {
+    display: none !important;
+  }
+
+  /* IMAGEM PRINCIPAL DO TOPO */
+  .hero-visual {
+    min-height: auto !important;
+  }
+
+  .hero-card,
+  .hero-card-rotator {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    position: relative !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #050507 !important;
+  }
+
+  .hero-card img,
+  .hero-card-rotator img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 210px !important;
+    object-fit: contain !important;
+    background: #050507 !important;
+  }
+
+  .hero-card div,
+  .hero-card-rotator div {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    min-height: auto !important;
+    padding: 8px 10px !important;
+    border-radius: 0 !important;
+    background: rgba(0,0,0,.92) !important;
+  }
+
+  .hero-card span {
+    font-size: 8px !important;
+  }
+
+  .hero-card strong {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* SEÇÕES */
+  .section {
+    padding: 34px 0 !important;
+  }
+
+  .section-head.center {
+    margin-bottom: 18px !important;
+  }
+
+  .section-head h2,
+  .contact h2 {
+    font-size: 20px !important;
+    line-height: 1.08 !important;
+    margin: 10px 0 7px !important;
+  }
+
+  .section-head p,
+  .contact-copy p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  /* DESTAQUES - NÃO CORTAR FOTO */
+  .highlight-grid,
+  .project-grid,
+  .service-cards,
+  .process-grid,
+  .form-actions {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .highlight-media {
+    height: 165px !important;
+    background: #050507 !important;
+  }
+
+  .highlight-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    background: #050507 !important;
+  }
+
+  .highlight-body {
+    padding: 12px !important;
+  }
+
+  .highlight-body h3 {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+
+  .highlight-body p {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .mini-gallery {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+    margin-top: 10px !important;
+  }
+
+  .mini-gallery button {
+    height: 38px !important;
+    background: #050507 !important;
+  }
+
+  .mini-gallery img {
+    object-fit: contain !important;
+    background: #050507 !important;
+  }
+
+  /* PORTFÓLIO - NÃO CORTAR FOTO */
+  .project-media {
+    height: 155px !important;
+    background: #050507 !important;
+  }
+
+  .project-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    background: #050507 !important;
+  }
+
+  .project-body {
+    padding: 12px !important;
+  }
+
+  .project-body h3 {
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+  }
+
+  .project-body p {
+    font-size: 12px !important;
+    line-height: 1.35 !important;
+  }
+
+  .project-category {
+    font-size: 9px !important;
+    padding: 4px 7px !important;
+  }
+
+  .gallery-inline {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 5px !important;
+    padding: 0 12px 12px !important;
+  }
+
+  .gallery-inline button {
+    height: 48px !important;
+    background: #050507 !important;
+  }
+
+  .gallery-inline img {
+    object-fit: contain !important;
+    background: #050507 !important;
+  }
+
+  /* CABEÇALHO */
+  .nav-wrap {
+    height: 62px !important;
+    min-height: 62px !important;
+  }
+
+  .brand img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .brand-text strong {
+    font-size: 14px !important;
+  }
+
+  .brand-text small,
+  .brand-text em {
+    display: none !important;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .hero h1 {
+    font-size: 19px !important;
+  }
+
+  .hero p {
+    font-size: 11.5px !important;
+  }
+
+  .hero-card img,
+  .hero-card-rotator img {
+    max-height: 185px !important;
+  }
+
+  .highlight-media {
+    height: 145px !important;
+  }
+
+  .project-media {
+    height: 140px !important;
+  }
+
+  .section-head h2,
+  .contact h2 {
+    font-size: 18px !important;
+  }
+}
