@@ -955,3 +955,99 @@
     height: 120px !important;
   }
 }
+/* AJUSTE SOMENTE DO COMEÇO DO SITE - HERO MOBILE */
+@media (max-width: 780px) {
+
+  .hero-card-rotator {
+    height: auto !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #050507 !important;
+  }
+
+  .hero-card-rotator img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 135px !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #050507 !important;
+  }
+
+  .hero-card-rotator div {
+    position: static !important;
+    min-height: auto !important;
+    padding: 7px 9px !important;
+    background: rgba(0,0,0,.92) !important;
+  }
+
+  .hero-card-rotator span {
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+  }
+
+  .hero-card-rotator strong {
+    font-size: 10.5px !important;
+    line-height: 1.18 !important;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .hero-card-rotator img {
+    max-height: 120px !important;
+  }
+
+  .hero-card-rotator strong {
+    font-size: 10px !important;
+  }
+}
+/* AJUSTE SOMENTE DO COMEÇO DO SITE - HERO MOBILE */
+@media (max-width: 780px) {
+
+  .hero-card-rotator {
+    height: auto !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #050507 !important;
+  }
+
+  .hero-card-rotator img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 135px !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: #050507 !important;
+  }
+
+  .hero-card-rotator div {
+    position: static !important;
+    min-height: auto !important;
+    padding: 7px 9px !important;
+    background: rgba(0,0,0,.92) !important;
+  }
+
+  .hero-card-rotator span {
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+  }
+
+  .hero-card-rotator strong {
+    font-size: 10.5px !important;
+    line-height: 1.18 !important;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .hero-card-rotator img {
+    max-height: 120px !important;
+  }
+
+  .hero-card-rotator strong {
+    font-size: 10px !important;
+  }
+}
