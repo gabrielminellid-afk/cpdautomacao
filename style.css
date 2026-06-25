@@ -915,3 +915,43 @@
     font-size: 18px !important;
   }
 }
+/* AJUSTE EXTRA - DIMINUIR MAIS AS IMAGENS NO CELULAR */
+@media (max-width: 780px) {
+
+  .hero-card img,
+  .hero-card-rotator img {
+    max-height: 170px !important;
+  }
+
+  .highlight-media {
+    height: 135px !important;
+  }
+
+  .project-media {
+    height: 130px !important;
+  }
+
+  .mini-gallery button {
+    height: 34px !important;
+  }
+
+  .gallery-inline button {
+    height: 42px !important;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .hero-card img,
+  .hero-card-rotator img {
+    max-height: 155px !important;
+  }
+
+  .highlight-media {
+    height: 125px !important;
+  }
+
+  .project-media {
+    height: 120px !important;
+  }
+}
