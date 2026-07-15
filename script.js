@@ -263,7 +263,6 @@ function setupContact(){
     if(!validateForm()) return;
 
     const d = formDataText();
-
     trackMetaContact("contact_form_whatsapp");
 
     window.open(
