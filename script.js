@@ -1,6 +1,14 @@
 const WHATSAPP_CPD = "5519991422109";
 const EMAIL_CPD = "cpdautomacao@outlook.com.br";
 const EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
+function trackMetaContact(source = "whatsapp"){
+  if(typeof fbq === "function"){
+    fbq("track", "Contact", {
+      contact_method: "whatsapp",
+      source: source
+    });
+  }
+}
 
 function encodePath(path){ return path.split('/').map(encodeURIComponent).join('/'); }
 function imgBase(base, alt="") { return `<img data-src-base="${base}" alt="${alt}">`; }
@@ -216,10 +224,29 @@ function formDataText(){
   const nome = fd.get('nome')||''; const email=fd.get('email')||''; const tel=fd.get('telefone')||''; const assunto=fd.get('assunto')||''; const msg=fd.get('mensagem')||'';
   return {nome,email,tel,assunto,msg, body:`Olá, sou ${nome}. Vim pelo site da CPD Automação Industrial.\n\nE-mail: ${email}\nTelefone: ${tel || 'não informado'}\nAssunto: ${assunto}\n\nMensagem:\n${msg}`};
 }
-function validateForm(){ const form=document.getElementById('contactForm'); if(!form.checkValidity()){form.reportValidity(); return false;} return true; }
 function setupContact(){
-  document.getElementById('sendWhatsapp')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); window.open(`https://wa.me/${WHATSAPP_CPD}?text=${encodeURIComponent(d.body)}`,'_blank','noopener'); });
-  document.getElementById('sendEmail')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); const subject = `Contato pelo site CPD - ${d.assunto}`; window.location.href = `mailto:${EMAIL_CPD}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(d.body)}`; });
-}
+  document.getElementById('sendWhatsapp')?.addEventListener('click',()=>{
+    if(!validateForm()) return;
 
-renderHighlights(); renderFilters(); renderProjects(); resolveAll(); setupHeroRotator(); setupFilters(); setupMenu(); setupReveal(); setupGallery(); setupContact();
+    const d = formDataText();
+
+    // Envia evento para o Meta Pixel
+    trackMetaContact("contact_form_whatsapp");
+
+    window.open(
+      `https://wa.me/${WHATSAPP_CPD}?text=${encodeURIComponent(d.body)}`,
+      '_blank',
+      'noopener'
+    );
+  });
+
+  document.getElementById('sendEmail')?.addEventListener('click',()=>{
+    if(!validateForm()) return;
+
+    const d = formDataText();
+    const subject = `Contato pelo site CPD - ${d.assunto}`;
+
+    window.location.href =
+      `mailto:${EMAIL_CPD}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(d.body)}`;
+  });
+}
