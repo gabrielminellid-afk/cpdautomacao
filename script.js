@@ -223,30 +223,4 @@ function formDataText(){
   const form = document.getElementById('contactForm'); const fd = new FormData(form);
   const nome = fd.get('nome')||''; const email=fd.get('email')||''; const tel=fd.get('telefone')||''; const assunto=fd.get('assunto')||''; const msg=fd.get('mensagem')||'';
   return {nome,email,tel,assunto,msg, body:`Olá, sou ${nome}. Vim pelo site da CPD Automação Industrial.\n\nE-mail: ${email}\nTelefone: ${tel || 'não informado'}\nAssunto: ${assunto}\n\nMensagem:\n${msg}`};
-}
-function setupContact(){
-  document.getElementById('sendWhatsapp')?.addEventListener('click',()=>{
-    if(!validateForm()) return;
-
-    const d = formDataText();
-
-    // Envia evento para o Meta Pixel
-    trackMetaContact("contact_form_whatsapp");
-
-    window.open(
-      `https://wa.me/${WHATSAPP_CPD}?text=${encodeURIComponent(d.body)}`,
-      '_blank',
-      'noopener'
-    );
-  });
-
-  document.getElementById('sendEmail')?.addEventListener('click',()=>{
-    if(!validateForm()) return;
-
-    const d = formDataText();
-    const subject = `Contato pelo site CPD - ${d.assunto}`;
-
-    window.location.href =
-      `mailto:${EMAIL_CPD}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(d.body)}`;
-  });
-}
+} function validateForm(){ const form=document.getElementById('contactForm'); if(!form.checkValidity()){form.reportValidity(); return false;} return true; } function setupContact(){ document.getElementById('sendWhatsapp')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); window.open(https://wa.me/${WHATSAPP_CPD}?text=${encodeURIComponent(d.body)},'_blank','noopener'); }); document.getElementById('sendEmail')?.addEventListener('click',()=>{ if(!validateForm()) return; const d=formDataText(); const subject = Contato pelo site CPD - ${d.assunto}; window.location.href = mailto:${EMAIL_CPD}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(d.body)}; }); } renderHighlights(); renderFilters(); renderProjects(); resolveAll(); setupHeroRotator(); setupFilters(); setupMenu(); setupReveal(); setupGallery(); setupContact();
